@@ -1,0 +1,24 @@
+GET http://localhost:5000/users
+
+###
+GET http://localhost:5000/users/2
+
+###
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "agrag",
+    "gender": "MALE",
+}
+
+###
+PATCH http://localhost:5000/users/2
+Content-Type: application/json
+
+{
+    "name": "Jane Doe",
+    "email": "Janedoe@test",
+    "gender": "Female",
+}
