@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import UserRoute from "./routes/UserRoute.js";
+import UserRoute from "./routes/Index.js";
 // import bodyParser from "body-parser";
 
 const app = express();

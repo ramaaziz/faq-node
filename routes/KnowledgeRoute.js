@@ -4,10 +4,10 @@ import { list, detail, add, update, remove } from '../controllers/KnowledgeBaseC
 
 const router = express.Router();
 
-router.get('/articles/', list);
-router.get('/articles/:id', detail);
-router.post('/articles/add', add);
-router.post('/articles/edit/:id', update);
-router.post('/articles/remove/:id', remove);
+router.get('/', list);
+router.get('/:id', detail);
+router.post('/add', add);
+router.post('/edit/:id', update);
+router.post('/remove/:id', remove);
 
 export default router;
