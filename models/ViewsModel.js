@@ -1,27 +1,29 @@
 import { Sequelize } from "sequelize";
 import db from "../config/db.config.js";
+import Articles from "./KnowledgeBase.js";
 
 const DataTypes = Sequelize;
 
-const categories = db.define('category', {
-    code:DataTypes.STRING,
-    label:DataTypes.STRING,
-    status:DataTypes.STRING,
-    created_by:DataTypes.STRING,
+const Views = db.define('views', {
+    article_id:DataTypes.INTEGER,
+    counter:DataTypes.INTEGER,
     createdAt: {
         type: DataTypes.DATE,
         field: 'created_at'
     },
-    updated_by:DataTypes.STRING,
     updatedAt: {
         type: DataTypes.DATE,
         field: 'updated_at'
     },
+
 }, {
     freezeTableName: true,
 });
 
-export default categories;
+Views.belongsTo(Articles, { foreignKey: 'article_id', as: 'Article' });
+Articles.hasMany(Views, { foreignKey: 'id', as: 'views'});
+
+export default Views;
 
 (async () => {
     await db.sync({ force: false });

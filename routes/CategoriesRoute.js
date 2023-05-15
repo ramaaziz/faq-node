@@ -1,12 +1,13 @@
 import express from "express";
 import { list, detail, add, update, remove } from '../controllers/CategoriesController.js'
+import authentification from "../middleware/authentification.js";
 
 const router = express.Router();
 
-router.get('/', list);
-router.get('/:id', detail);
-router.post('/add', add);
-router.post('/edit/:id', update);
-router.post('/remove/:id', remove);
+router.get('/', authentification, list);
+router.get('/:id', authentification, detail);
+router.post('/add', authentification, add);
+router.post('/edit/:id', authentification, update);
+router.post('/remove/:id', authentification, remove);
 
 export default router;
