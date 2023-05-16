@@ -1,6 +1,7 @@
 import Articles from "../models/KnowledgeBase.js"
 import categories from "../models/CategoriesModel.js"
 import Views from "../models/ViewsModel.js"
+import Ratings from "../models/RatingModel.js"
 import { Sequelize } from "sequelize";
 
 export const list = async (req, res) => {
@@ -25,11 +26,13 @@ export const detail = async (req, res) => {
         attributes: ["id", "title", "description", "category", "content", "tags", "keywords", "status", "created_at", "updated_at", "created_by", "updated_by",
         [Sequelize.col('Category.label'), 'category_label'],
         [Sequelize.col('Category.code'), 'category_code'],
-        [Sequelize.col('views.counter'), 'total_view'],],
+        [Sequelize.col('views.counter'), 'total_view'],
+        [Sequelize.col('ratings.rating'), 'total_rating'],],
         where: { id: req.params.id, status: 'active' },
         include: [
             { model: categories, as: 'Category', attributes: []},
             { model: Views, as: 'views', attributes: []},
+            { model: Ratings, as: 'ratings', attributes: []},
           ]
       });
 
@@ -51,11 +54,13 @@ export const detail = async (req, res) => {
         attributes: ["id", "title", "description", "category", "content", "tags", "keywords", "status", "created_at", "updated_at", "created_by", "updated_by",
         [Sequelize.col('Category.label'), 'category_label'],
         [Sequelize.col('Category.code'), 'category_code'],
-        [Sequelize.col('views.counter'), 'total_view'],],
+        [Sequelize.col('views.counter'), 'total_view'],
+        [Sequelize.col('ratings.rating'), 'total_rating'], ],
         where: { id: req.params.id, status: 'active' },
         include: [
             { model: categories, as: 'Category', attributes: []},
             { model: Views, as: 'views', attributes: []},
+            { model: Ratings, as: 'ratings', attributes: []},
           ]
       });
       const views = await Views.findOne({
