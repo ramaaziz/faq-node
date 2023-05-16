@@ -1,5 +1,5 @@
 import express from "express";
-import { list, detail, add, update, remove } from '../controllers/KnowledgeBaseController.js'
+import { list, detail, add, update, remove, view } from '../controllers/KnowledgeBaseController.js'
 import authentification from "../middleware/authentification.js";
 
 const router = express.Router();
