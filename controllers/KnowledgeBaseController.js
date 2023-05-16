@@ -158,6 +158,30 @@ export const remove = async (req, res) => {
         })
     }
 }
+
+export const rating = async (req, res) => {
+    try {
+        const article = await Articles.findOne({
+            where: { id: req.params.id, status: 'active' },
+          });
+        if (!article) {
+            return res.status(404).json({ message: 'Article not found' });
+          }
+        const rating = await Ratings.create({
+            article_id: req.params.id,
+            rating:  req.body.rating,
+        });
+        res.json({
+            message: "Success add new rating",
+            data: rating,
+        }
+        );
+    } catch (err) {
+        res.json({
+            message: err.message
+        })
+    }
+}
   
   
   
