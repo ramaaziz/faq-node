@@ -6,12 +6,32 @@ import { Sequelize } from "sequelize";
 
 export const list = async (req, res) => {
     try {
-        const articles = await Articles.findAll({ where: { status: 'active' },
-            
-          });
+        const articles = await Articles.findAll({ where: { status: 'active' },});
         res.json({
             message: "Success get all articles",
             data: articles,
+        });
+    } catch (err) {
+        res.json({
+            message: err.message
+        })
+    }
+}
+export const listPopular = async (req, res) => {
+    try {
+        const populars = await Articles.findAll({
+        attributes: ["id", "title", "description", "category", "content", "tags", "keywords", "status", "created_at", "updated_at", "created_by", "updated_by", 
+        [Sequelize.col('views.counter'), 'total_view'],],
+        include: [
+            { model: Views, as: 'views', attributes: []},
+        ],
+        order: [
+            ['views', 'counter', 'DESC'],
+        ],
+    });
+        res.json({
+            message: "Success get all articles",
+            data: populars,
         });
     } catch (err) {
         res.json({
@@ -37,7 +57,7 @@ export const detail = async (req, res) => {
       });
 
       if (!article) {
-        return res.status(404).json({ message: 'Article not found' });
+        return res.status(404).json({ message: 'Article not found yaqin' });
       }
       res.json({
         message: "Success get article detail",
@@ -46,9 +66,9 @@ export const detail = async (req, res) => {
     } catch (err) {
       res.json({ message: err.message });
     }
-  };
+};
 
-  export const view = async (req, res) => {
+export const view = async (req, res) => {
     try {
       const article = await Articles.findOne({
         attributes: ["id", "title", "description", "category", "content", "tags", "keywords", "status", "created_at", "updated_at", "created_by", "updated_by",
@@ -79,7 +99,7 @@ export const detail = async (req, res) => {
     } catch (err) {
       res.json({ message: err.message });
     }
-  };
+};
 
 export const add = async (req, res) => {
     console.log(req.body);
@@ -182,6 +202,8 @@ export const rating = async (req, res) => {
         })
     }
 }
+
+
   
   
   

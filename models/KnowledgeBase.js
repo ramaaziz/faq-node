@@ -5,12 +5,6 @@ import categories from "./CategoriesModel.js";
 const { DataTypes } = Sequelize;
 
 const Articles = db.define('articles', {
-    // articleId: {
-    //     type: DataTypes.INTEGER,
-    //     field: 'id',
-    //     primaryKey: true,
-    //     autoIncrement: true,
-    // },
     title:DataTypes.STRING,
     description:DataTypes.STRING,
     categoryId: {

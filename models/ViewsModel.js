@@ -21,7 +21,7 @@ const Views = db.define('views', {
 });
 
 Views.belongsTo(Articles, { foreignKey: 'article_id', as: 'Article' });
-Articles.hasMany(Views, { foreignKey: 'id', as: 'views'});
+Articles.hasMany(Views, { foreignKey: 'id', as: 'views' });
 
 export default Views;
 
