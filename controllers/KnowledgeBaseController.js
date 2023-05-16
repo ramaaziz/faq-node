@@ -32,6 +32,32 @@ export const detail = async (req, res) => {
             { model: Views, as: 'views', attributes: []},
           ]
       });
+
+      if (!article) {
+        return res.status(404).json({ message: 'Article not found' });
+      }
+      res.json({
+        message: "Success get article detail",
+        data: article,
+      });
+    } catch (err) {
+      res.json({ message: err.message });
+    }
+  };
+
+  export const view = async (req, res) => {
+    try {
+      const article = await Articles.findOne({
+        attributes: ["id", "title", "description", "category", "content", "tags", "keywords", "status", "created_at", "updated_at", "created_by", "updated_by",
+        [Sequelize.col('Category.label'), 'category_label'],
+        [Sequelize.col('Category.code'), 'category_code'],
+        [Sequelize.col('views.counter'), 'total_view'],],
+        where: { id: req.params.id, status: 'active' },
+        include: [
+            { model: categories, as: 'Category', attributes: []},
+            { model: Views, as: 'views', attributes: []},
+          ]
+      });
       const views = await Views.findOne({
         where: { id: req.params.id },
         });
